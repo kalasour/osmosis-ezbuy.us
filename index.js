@@ -16,12 +16,11 @@ function GetData(url, name) {
             name: 'span'
         })
         .find('div > span#product_description').set('description')
-        // .find('span#altviews').set({ listImg: ['a > @href'] })
-        .find('table#v65-product-parent').set({ price: 'table.colors_pricebox[0] > span' })
+        .find('font.pricecolor > div.product_productprice').set({ price: 'b > span' })
         .data(res => { out.push(res) }).done(() => {
             if (out.length == 0) GetData2(url, name)
             else
-                fs.writeFile('./data/' + input.file, JSON.stringify(out).replace(/\/\/cdn/g, "http://cdn"), (err) => {
+                fs.writeFile('./data/' + input.file, 'var data = ' + JSON.stringify(out).replace(/\/\/cdn/g, "http://cdn") + ';module.exports = { data }', (err) => {
                     if (err) console.log(err);
                     console.log("Successfully Written to " + name + " File. " + out.length);
                 });
@@ -47,10 +46,9 @@ function GetData2(url, name) {
             name: 'span'
         })
         .find('div > span#product_description').set('description')
-        // .find('span#altviews').set({ listImg: ['a > @href'] })
-        .find('table#v65-product-parent').set({ price: 'table.colors_pricebox[0] > span' })
+        .find('font.pricecolor > div.product_productprice').set({ price: 'b > span' })
         .data(res => { out.push(res) }).done(() => {
-            fs.writeFile('./data/' + input.file, JSON.stringify(out).replace(/\/\/cdn/g, "http://cdn"), (err) => {
+            fs.writeFile('./data/' + input.file, 'var data = ' + JSON.stringify(out).replace(/\/\/cdn/g, "http://cdn") + ';module.exports = { data }', (err) => {
                 if (err) console.log(err);
                 console.log("Successfully Written to " + name + " File. " + out.length);
             });

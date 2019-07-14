@@ -20,8 +20,11 @@ osmosis.get('https://www.ezbuy.us/Login.asp').login('nnn@nnn.com', 'Nuntawat').g
     })
     .find('div > span#product_description').set('description')
     // .find('span#altviews').set({ listImg: ['a > @href'] })
-    .find('table#v65-product-parent').set({ price: 'table.colors_pricebox[0] > span' })
-    .data(res => { out.push(res) }).done(() => {
+    .find('font.pricecolor > div.product_productprice').set({ price: 'b > span' })
+    .data(res => {
+        out.push(res)
+        console.log(res)
+    }).done(() => {
         fs.writeFile('./data/' + input.file, JSON.stringify(out), (err) => {
             if (err) console.log(err);
             console.log("Successfully Written to " + name + " File. " + out.length);
